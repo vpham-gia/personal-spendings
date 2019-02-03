@@ -21,4 +21,4 @@ python spendings/from_drive_to_xlsx/main.py
 ```  
 
 ### Settings and configuration
-Files `credentials.json` and `storage.json` must be put in `spendings/from_drive_to_xlsx/config/` folder
+File `credentials.json` must be downloaded from https://console.developers.google.com and put in `spendings/from_drive_to_xlsx/config/` folder
