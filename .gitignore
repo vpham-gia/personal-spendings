@@ -1,5 +1,7 @@
 *.xlsx
 .ftpconfig
+*.pdf
+finance/
 
 # IDE
 # pycharm settings

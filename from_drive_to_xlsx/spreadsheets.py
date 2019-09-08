@@ -238,7 +238,7 @@ class ExcelWorkbook(object):
         ws = self.workbook[ws_name]
         last_row = ws.max_row
 
-        if ws_name == 'BNP - CC':
+        if ws_name in ['BNP - CC', 'Amex']:
             cols = ['J', 'I', 'H']
         elif ws_name == 'BNP - Prêt':
             cols = ['H', 'G', 'F']
@@ -297,7 +297,7 @@ class ExcelWorkbook(object):
         """
         ws = self.workbook[ws_name]
 
-        if ws_name == 'BNP - CC':
+        if ws_name in ['BNP - CC', 'Amex']:
             range_values = ws['C{}:I{}'.format(row_start, row_end)]
         else:
             range_values = ws['B{}:H{}'.format(row_start, row_end)]
@@ -307,7 +307,7 @@ class ExcelWorkbook(object):
         for cell, value in zip(list_cells, list_values):
             cell.value = value
 
-        if ws_name == 'BNP - CC':
+        if ws_name in ['BNP - CC', 'Amex']:
             for i in range(row_start, row_end+1):
                 ws['B{}'.format(i)].value = ws['C{}'.format(i)].value
 
