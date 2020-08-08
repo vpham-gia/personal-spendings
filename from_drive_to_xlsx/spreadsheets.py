@@ -50,13 +50,8 @@ class GSheets(object):
         df: pd.DataFrame
         """
         df = self.ws.to_frame()
-
         df.columns = [re.sub(' |\?', '', re.sub('é', 'e', col)).lower() for col in df.columns]
-
-        # df['timestamp'] = pd.to_datetime(df['timestamp'])
         df['date'] = pd.to_datetime(df['date'], format='%m/%d/%Y')
-        # df['date'] = df['date'].apply(lambda x: '{}/{}/{}'.format(x.day, x.month, x.year))
-
         return df
 
     def get_data_from_timestamp(self, timestamp):
@@ -169,7 +164,7 @@ class ExcelWorkbook(object):
 
         return latest_timestamp
 
-    def get_last_row_number(self, ws_name, start_row=12, column='C'):
+    def get_last_row_number(self, ws_name, start_row=14, column='C'):
         """ Select last row with information to append Excel sheet
 
         Parameters
@@ -221,8 +216,6 @@ class ExcelWorkbook(object):
                 inserted_cell.number_format = copy(last_row_cell.number_format)
                 inserted_cell.border = copy(last_row_cell.border)
 
-        pass
-
     def update_total_formula(self, ws_name, row_to_insert_from):
         """ Update total formula from rows that were inserted
         (Insertion using openpyxl does not keep formulas like Excel)
@@ -253,9 +246,6 @@ class ExcelWorkbook(object):
                                                                                       row=row_number)
             ws['{col}{row}'.format(col=cols[0], row=row_number)].value = formula_value
 
-        pass
-
-
     def copy_timestamp(self, ws_name, row_start, row_end, list_ts_values):
         """ Copy values of list_ts_values to column A in Excel sheet
 
@@ -278,8 +268,6 @@ class ExcelWorkbook(object):
         for cell, ts in zip(list_range_ts, list_ts_values):
             cell.value = ts
             cell.font = Font(color='FFFFFF')
-
-        pass
 
     def copy_spendings_values(self, ws_name, row_start, row_end, list_values):
         """ Copy values of list_values to specific range in Excel sheet
@@ -331,5 +319,3 @@ if __name__ == "__main__":
 
 
     ew.workbook.save('/Users/vinhpham-gia/Documents/0_Perso/spendings/tmp_test.xlsx')
-
-    pass
