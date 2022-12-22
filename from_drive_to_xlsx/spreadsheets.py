@@ -216,7 +216,7 @@ class ExcelWorkbook(object):
                 inserted_cell.number_format = copy(last_row_cell.number_format)
                 inserted_cell.border = copy(last_row_cell.border)
 
-    def update_total_formula(self, ws_name, row_to_insert_from):
+    def update_total_formula(self, ws_name, first_row_to_insert, last_row_to_insert):
         """ Update total formula from rows that were inserted
         (Insertion using openpyxl does not keep formulas like Excel)
 
@@ -224,12 +224,12 @@ class ExcelWorkbook(object):
         ----------
         ws_name: string
             Sheetname to investigate
-        row_to_insert_from: integer
-            Insert rows from row #row_to_insert_from - most often, it corresponds
+        first_row_to_insert: integer
+            Insert rows from row #first_row_to_insert - most often, it corresponds
             to ExcelWorkbook.get_last_row_number(...)
+        last_row_to_insert: integer
         """
         ws = self.workbook[ws_name]
-        last_row = ws.max_row
 
         if ws_name in ['BNP - CC', 'Amex']:
             cols = ['J', 'I', 'H']
@@ -238,7 +238,7 @@ class ExcelWorkbook(object):
         else:
             cols = ['I', 'H', 'G']
 
-        for row_number in range(row_to_insert_from, last_row):
+        for row_number in range(first_row_to_insert, last_row_to_insert+1):
             formula_value = '={0}{row_prev} + IF({1}{row}="oui", {2}{row}, 0)'.format(cols[0],
                                                                                       cols[1],
                                                                                       cols[2],
@@ -304,7 +304,7 @@ if __name__ == "__main__":
     ew = ExcelWorkbook(filename='/Users/vinhpham-gia/Documents/0_Perso/spendings/tmp_test.xlsx')
 
     # ew.insert_and_copy_format(ws_name='BNP - CC',
-    #                           row_to_insert_from=94,
+    #                           first_row_to_insert=94,
     #                           number_rows=5)
 
     toto = ew.workbook['BNP - CC']
