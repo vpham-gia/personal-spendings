@@ -4,7 +4,7 @@ from tkinter.filedialog import askopenfilename
 
 url = 'https://docs.google.com/spreadsheets/d/1rhvvDNQfRwofOBiuB3ADKV0wpqcZVJQJiuA2XRRszyo/edit#gid=1682984485'
 
-# filename = '/Users/vinhpham-gia/Documents/0_Perso/spendings/Dépenses 2018-2019.xlsx'
+# filename = '/Users/vinhpg/Documents/Documents-perso/finance/suivi-depenses/Dépenses 2025.xlsx'
 filename = askopenfilename()
 Tk().update()
 ew = ExcelWorkbook(filename=filename)
