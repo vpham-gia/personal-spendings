@@ -1,4 +1,5 @@
 from from_drive_to_xlsx.spreadsheets import GSheets, ExcelWorkbook
+import subprocess
 from tkinter import *
 from tkinter.filedialog import askopenfilename
 
@@ -15,7 +16,7 @@ spendings_drive = gs.get_data_from_timestamp(timestamp=latest_timestamp)
 
 for sh_name in spendings_drive['compte'].unique():
     try:
-        print('Running script for {}'.format(sh_name))
+        print('-- Running script for {}'.format(sh_name))
         rows_to_append = gs.get_number_of_rows_to_append(spendings=spendings_drive, account_name=sh_name)
         ts_values, values = gs.get_timestamp_and_values(spendings=spendings_drive, account_name=sh_name)
 
@@ -42,4 +43,10 @@ for sh_name in spendings_drive['compte'].unique():
         print('Error for {}'.format(sh_name))
 
 ew.workbook.save(filename)
+
+print('------')
+print('Launching Excel file..')
+subprocess.run(['open', filename], check=True)
+print('.. Done')
+print('------')
 print('End of file {}'.format(__file__))
